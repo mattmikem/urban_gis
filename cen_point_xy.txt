@@ -1,0 +1,23 @@
+# Import arcpy module
+import arcpy
+from arcpy import env
+import sys
+import shapefile
+import shpUtils
+import timeit
+
+path = "L:\\Research\\Resurgence\\GIS\\"
+
+#Overwriting allowed
+arcpy.env.overwriteOutput = True
+
+#Working Directory
+arcpy.env.workspace = "L:\\Research\\Resurgence\\GIS\\Working Files\\Output\\Test"
+arcpy.env.qualifiedFieldNames = False
+
+n_s = 251
+n_e = 261
+
+for c in range(n_s, n_e):
+
+		start = timeit.default_timer()

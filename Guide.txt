@@ -1,0 +1,64 @@
+Guide to Resurgence Modules
+
+"city_center_(date).py"
+
+Inputs to GIS module:
+
++ Shapefiles, include Urban Areas (2010), Census Tracts (2010) [path = "L:\\Research\\Resurgence\\GIS\\"]
++ Urban Area Ranking by Population (2010) [path = "L:\\Research\\Resurgence\\GIS\\"]
++ LEHD Employment data (2010) [path + "Working Files\\wac_trct.xlsx"]
+
+(i)   UA are indexed (by c), looped through to create universe of tracts for states relevant to UA_c, projected
+(ii)  LEHD built on to create shapefile for all UA_c tracts, employment density computed
+(iii) Hotspot analysis run on employment density, keeping all those with G*>thresh (thres=2.58 for now)
+(iv)  Boundaries dissolved among these high emp dens areas, cluster with max(G*) kept as cc cluster, centroid as cc point
+(v)   City Centers defined based on cc point and clusters.
+
+Outputs:
+
++ Shapefiles for CC tracts for each UA
++ Universe of tracts for each UA
+
+"resurge_htspt.py"
+
+Inputs to "resurge_htspt"
+
++ Same shapefiles and ranking as "city_center..."
++ NCDB (1970-2010, 2010 Boundaries), [NCDB_forGstar.xlsx]
+ 
+ 
+(i)   UA indexed again, looped through
+(ii)  NCDB mapped onto tracts tracked from "city_center...", includes only income, pop, and shr vars, generated from "ncdb_gis.do" based on full NCDB
+(iii) Hotspot analysis run for each year (1970-2010) on income and shr variables (perc_white for reverse white flight computation)
+
+Outputs:
+
++ G* by income and perc_white for each UA
+
+"cc_points.do"
+
+Inputs:
+
++ Spillover tract list, distance to city center list (NO SOURCE IN ARC, NEED TO CONVERT FROM QGIS) [L:\Research\Resurgence\GIS\Working Files\Output\Spillover and Distance]
+
+(i)   Converts distance measure to miles, builds into large data set for all UA
+(ii)  Keeps all spillover tracts (nearest neighbors) with distance gamma (gamma = 1 mile for now), takes means, maps back onto original tract with spill_inc variable attached
+
+Outputs:
+
++ Distance to CC for each tract
++ Spillover income based on set of closest tracts (MANY DO NOT HAVE SPILLOVER)
+
+"ncdb_gis.do"
+
+Inputs: 
+
++ NCDB (full) [global ncdb = "L:\Research\Resurgence\NCDB"]
+
+(i)  Labels variables, fixes geo codes, etc.
+(ii) Generates useful NCDB variables (re-coded)
+
+Outputs:
+
++ "NCDB_forGstar.xlsx" - input into "resurge_htspt.py"
++ ncdb_reg.dta - input into build of  data set for full analysis.

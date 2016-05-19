@@ -1,0 +1,7 @@
+##Download Census Tiger Files
+
+
+
+import urllib
+
+urllib.urlretrieve ("http://randomsite.com/file.gz", "file.gz")

@@ -1,0 +1,6 @@
+f = open('M:\\Research\\Urban\\Resurgence\\ACS\\Output\\ua_rank_2010.txt')
+
+for lines in f: 
+		print lines,
+			
+		
